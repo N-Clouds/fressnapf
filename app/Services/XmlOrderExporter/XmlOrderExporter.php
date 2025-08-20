@@ -64,7 +64,7 @@ class XmlOrderExporter
             $add($p, 'cBarcode', $item->barcode ?? '');
             $add($p, 'cSeriennummer', $item->serial_number ?? '');
             $add($p, 'cEinheit', $item->unit ?? '');
-            $add($p, 'fPreisEinzelNetto', $this->dec($item->price_unit, 2)); // wie in deinem Beispiel
+            $add($p, 'fPreisEinzelNetto', $this->dec(($item->price_unit/119)*100, 2)); // wie in deinem Beispiel
             $add($p, 'fPreis',            $this->dec($item->price_gross ?? 0, 2));
             $add($p, 'fMwSt',             19);
             $add($p, 'fAnzahl',           $this->dec($item->quantity, 2));
