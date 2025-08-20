@@ -45,7 +45,7 @@ class XmlOrderExporter
         $add($b, 'cBestellNr',   $order->order_number ?? '');
         $add($b, 'cExterneBestellNr', $order->order_id ?? '');
         //TODO: Versandart mapping
-        $add($b, 'cVersandartName',   $order->shipping_method_name ?? 'GLS Deutschland');
+        $add($b, 'cVersandartName',   $order->shipping_method_name ?? 'Fressnapf GLS');
         $add($b, 'cVersandInfo',      $order->shipping_info);
         $add($b, 'dVersandDatum',     optional($order->shipped_at)?->format('Y-m-d'));
         $add($b, 'cTracking',         $order->tracking_code ?? '');
@@ -71,6 +71,19 @@ class XmlOrderExporter
             $add($p, 'cPosTyp',           $item->type ?? 'standard');
             $add($p, 'fRabatt',           $this->dec($item->discount ?? 0));
         }
+
+        $versand = $b->addChild('twarenkorbpos');
+        $add($versand, 'cName',   'Versand');
+        $add($versand, 'cArtNr',  'Versand');
+        $add($versand, 'cBarcode', '');
+        $add($versand, 'cSeriennummer', '');
+        $add($versand, 'cEinheit', '');
+        $add($versand, 'fPreisEinzelNetto', 0); // wie in deinem Beispiel
+        $add($versand, 'fPreis',            0);
+        $add($versand, 'fMwSt',             19);
+        $add($versand, 'fAnzahl',           1);
+        $add($versand, 'cPosTyp',           'versandkosten');
+        $add($versand, 'fRabatt',           0);
 
         // Kunde
         if ($order->billingAddress) {
