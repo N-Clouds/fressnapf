@@ -49,7 +49,7 @@ class ImportOrders extends Command
 //            return Command::FAILURE;
 //        }
 
-        $_orders = $this->client->orders()->all();
+        $_orders = $this->client->orders()->open();
 
         $orders = $_orders['orders'] ?? [];
 
