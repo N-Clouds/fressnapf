@@ -155,11 +155,11 @@ class ImportOrders extends Command
                         'can_refund'                     => $l['can_refund']                 ?? false,
 
                         // Timestamps
-                        'created_date'                   => $l['created_date']               ?? null,
-                        'debited_date'                   => $l['debited_date']               ?? null,
-                        'received_date'                  => $l['received_date']              ?? null,
-                        'shipped_date'                   => $l['shipped_date']               ?? null,
-                        'last_updated_date'              => $l['last_updated_date']          ?? null,
+//                        'created_date'                   => $l['created_date']               ?? null,
+//                        'debited_date'                   => $l['debited_date']               ?? null,
+//                        'received_date'                  => $l['received_date']              ?? null,
+//                        'shipped_date'                   => $l['shipped_date']               ?? null,
+//                        'last_updated_date'              => $l['last_updated_date']          ?? null,
 
                         // Labels & Hinweise
                         'category_code'                  => $l['category_code']              ?? null,
