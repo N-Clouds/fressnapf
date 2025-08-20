@@ -73,7 +73,7 @@ class ImportOrders extends Command
                 ]
             );
 
-//            $this->client->orders()->accept($order);
+            $this->client->orders()->accept($order);
 
 //            $tmp = $this->client->orders()->get($order);
 //
