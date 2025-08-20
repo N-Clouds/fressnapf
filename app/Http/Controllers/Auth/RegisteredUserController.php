@@ -18,8 +18,10 @@ class RegisteredUserController extends Controller
     /**
      * Show the registration page.
      */
-    public function create(): Response
+    public function create()
     {
+        return to_route('login');
+
         return Inertia::render('auth/Register');
     }
 
@@ -30,6 +32,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        return to_route('login');
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
