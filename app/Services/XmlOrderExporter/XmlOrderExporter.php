@@ -9,7 +9,9 @@ class XmlOrderExporter
 {
     public function exportMany(Collection $orders): string
     {
-        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="ISO-8859-1"?><tBestellungen/>');
+/*        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="ISO-8859-1"?><tBestellungen/>');*/
+
+        $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><root/>');
 
         foreach ($orders as $order) {
             $this->appendBestellung($xml, $order);
@@ -22,12 +24,18 @@ class XmlOrderExporter
     {
         $b = $root->addChild('tBestellung');
 
+
         $add = function(\SimpleXMLElement $parent, string $name, $value = null) {
             $text = $value === null ? '' : (string)$value;
-            // UTF-8 (DB) -> ISO-8859-1 (Export)
-            $text = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $text);
-            $parent->addChild($name, htmlspecialchars($text, ENT_QUOTES));
+            $parent->addChild($name, htmlspecialchars($text, ENT_QUOTES, 'UTF-8'));
         };
+
+//        $add = function(\SimpleXMLElement $parent, string $name, $value = null) {
+//            $text = $value === null ? '' : (string)$value;
+//            // UTF-8 (DB) -> ISO-8859-1 (Export)
+//            $text = iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $text);
+//            $parent->addChild($name, htmlspecialchars($text, ENT_QUOTES));
+//        };
 
         // Kopf
         $add($b, 'cSprache',     $order->language ?? 'ger');
@@ -92,7 +100,7 @@ class XmlOrderExporter
         // Lieferadresse
         if ($order->shippingAddress) {
             $a = $b->addChild('tlieferadresse');
-            $add($a, 'cAnrede',     $order->shippingAddress->salutation ?? 'Herr');
+            $add($a, 'cAnrede',     $order->shippingAddress->salutation ?? '');
             $add($a, 'cVorname',    $order->shippingAddress->firstname);
             $add($a, 'cNachname',   $order->shippingAddress->lastname);
             $add($a, 'cTitel',      $order->shippingAddress->title ?? '');
