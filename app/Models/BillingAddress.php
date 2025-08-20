@@ -27,6 +27,8 @@ class BillingAddress extends Model
         'state',
         'zip_code',
         'country_iso_code',
+        'mobile',
+        'phone'
     ];
 
     protected function casts(): array
@@ -39,6 +41,8 @@ class BillingAddress extends Model
             'street_2' => 'encrypted',
             'city' => 'encrypted',
             'zip_code' => 'encrypted',
+            'mobile' => 'encrypted',
+            'phone' => 'encrypted',
         ];
     }
 

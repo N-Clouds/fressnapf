@@ -72,6 +72,7 @@ class ImportOrderData extends Command
                         'state'                    => $s['state']                   ?? null,
                         'zip_code'                 => $s['zip_code']                ?? null,
                         'country_iso_code'         => $s['country_iso_code']        ?? null,
+                        'phone'                   => $s['phone'] ?? null,
                     ]
                 );
             }
@@ -92,6 +93,7 @@ class ImportOrderData extends Command
                         'state'            => $b['state']            ?? null,
                         'zip_code'         => $b['zip_code']         ?? null,
                         'country_iso_code' => $b['country_iso_code'] ?? null,
+                        'phone'           => $b['phone'] ?? null,
                     ]
                 );
             }

@@ -43,7 +43,7 @@ class XmlOrderExporter
         $add($b, 'fGuthaben',    $this->dec($order->credit ?? 0));
         $add($b, 'fGesamtsumme', $this->dec($order->total ?? 0));
         $add($b, 'cBestellNr',   $order->order_number ?? '');
-        $add($b, 'cExterneBestellNr', $order->commercial_id ?? '');
+        $add($b, 'cExterneBestellNr', $order->order_id ?? '');
         //TODO: Versandart mapping
         $add($b, 'cVersandartName',   $order->shipping_method_name ?? 'GLS Deutschland');
         $add($b, 'cVersandInfo',      $order->shipping_info);

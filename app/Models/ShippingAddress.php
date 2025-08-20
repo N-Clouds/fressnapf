@@ -36,6 +36,8 @@ class ShippingAddress extends Model
             'street_2' => 'encrypted',
             'city' => 'encrypted',
             'zip_code' => 'encrypted',
+            'mobile' => 'encrypted',
+            'phone' => 'encrypted',
         ];
     }
 
