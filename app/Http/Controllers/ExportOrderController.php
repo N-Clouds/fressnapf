@@ -12,7 +12,7 @@ class ExportOrderController extends Controller
 {
     public function exportOrder(XmlOrderExporter $exporter)
     {
-        $orders = Order::with(['lines', 'billingAddress', 'shippingAddress'])
+        $orders = Order::whereHas('billingAddress')->with(['lines', 'billingAddress', 'shippingAddress'])
             ->whereNull('exported_at')
             ->orderBy('id')
             ->get();
