@@ -73,7 +73,6 @@ class ImportOrders extends Command
                 ]
             );
 
-            $this->client->orders()->accept($order);
 
 //            $tmp = $this->client->orders()->get($order);
 //
@@ -184,6 +183,9 @@ class ImportOrders extends Command
                     ]
                 );
             }
+
+            $this->client->orders()->accept($order);
+
         }
 
         $this->info('✅ Bestellungen erfolgreich importiert via Guzzle.');
