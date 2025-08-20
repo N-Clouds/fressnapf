@@ -51,6 +51,8 @@ class ImportOrders extends Command
 
         $_orders = $this->client->orders()->open();
 
+        dump($_orders);
+
         $orders = $_orders['orders'] ?? [];
 
         foreach ($orders as $o) {
