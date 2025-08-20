@@ -24,6 +24,7 @@ class ShippingAddress extends Model
         'state',
         'zip_code',
         'country_iso_code',
+        'phone'
     ];
 
     protected function casts(): array
