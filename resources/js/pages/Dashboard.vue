@@ -4,6 +4,7 @@ import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 import PlaceholderPattern from '../components/PlaceholderPattern.vue';
 import {Button} from '../components/ui/button'
+import UnimportedOrders from '@/pages/partials/UnimportedOrders.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -11,6 +12,10 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/dashboard',
     },
 ];
+
+defineProps({
+    orders: Array
+})
 
 </script>
 
@@ -21,18 +26,22 @@ const breadcrumbs: BreadcrumbItem[] = [
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4 overflow-x-auto">
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border flex justify-center items-center">
-<!--                    <PlaceholderPattern />-->
-                    <Button as="a" target="_blank" :href="route('orders.export')">Download import file</Button>
+                    <PlaceholderPattern v-if="!orders?.length" />
+                    <Button as="a" target="_blank" :href="route('orders.export')">{{ orders?.length ? 'Download import file': 'nothing to export'}}</Button>
                 </div>
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <PlaceholderPattern />
                 </div>
                 <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <PlaceholderPattern />
+                    <PlaceholderPattern class="relative"/>
+                    <div class="absolute z-20">No open orders</div>
                 </div>
             </div>
             <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-                <PlaceholderPattern />
+                <div class="flex my-4 mx-6">
+                    <span class="text-md">Orders to export</span>
+                </div>
+                <UnimportedOrders :orders="orders" />
             </div>
         </div>
     </AppLayout>

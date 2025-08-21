@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,7 +14,14 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth', 'verified'], function () {
     Route::get('dashboard', function () {
-        return Inertia::render('Dashboard');
+        $orders = Order::whereHas('billingAddress')->with(['lines', 'billingAddress', 'shippingAddress'])
+            ->whereNull('exported_at')
+            ->orderBy('id')
+            ->get();
+
+        return Inertia::render('Dashboard', [
+            'orders' => $orders,
+        ]);
     })->name('dashboard');
 
     Route::get('orders/export', [\App\Http\Controllers\ExportOrderController::class, 'exportOrder'])->name('orders.export');
