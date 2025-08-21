@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 
 Schedule::command('app:import-orders')->everyFiveMinutes();
 Schedule::command('app:import-order-data')->everyFiveMinutes();
+Schedule::command('app:ship-order')->everyTenMinutes();

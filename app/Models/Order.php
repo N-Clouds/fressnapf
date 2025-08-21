@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,6 +26,8 @@ class Order extends Model
         'total_commission',
         'currency_iso_code',
         'shipping_type_label',
+        'tracking_id',
+        'tracking_submitted_at'
     ];
 
     protected function casts(): array
@@ -57,5 +60,11 @@ class Order extends Model
     public function shippingAddress(): HasOne
     {
         return $this->hasOne(ShippingAddress::class);
+    }
+
+    public function scopeOpenTracking(Builder $query)
+    {
+//        return $query->where('id', 1);
+        $query->whereNotNull('tracking_id')->whereNull('tracking_submitted_at')->limit(5);
     }
 }

@@ -67,6 +67,29 @@ class Orders extends ApiClient
             ]
         );
     }
+
+    public function postTrackingInformation(Order $order)
+    {
+        $endpoint = "/api/orders/{$order->order_id}/tracking";
+
+        return $this->_put(
+            $endpoint,
+            [
+                'carrier_code'          => 'GLS',
+                'carrier_standard_code' => null,
+                'carrier_name'          => '',
+                'carrier_url'           => '',
+                'tracking_number'       => $order->tracking_id
+            ],
+            []
+        );
+    }
+
+    public function markAsShipped(Order $order)
+    {
+        $endpoint = "/api/orders/{$order->order_id}/ship";
+        return $this->_put($endpoint);
+    }
 //
 //    public function create($data)
 //    {

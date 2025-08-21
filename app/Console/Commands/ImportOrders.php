@@ -29,26 +29,6 @@ class ImportOrders extends Command
 
     public function handle(): int
     {
-//        dd();
-//        try {
-//            /** @var ResponseInterface $response */
-//            $response = $this->client->request('GET', $this->baseUri . '/api/orders', [
-//                'headers' => [
-//                    'Authorization' => $this->token,
-//                    'Accept'        => 'application/json',
-//                ],
-//                'query' => [
-//                    'page'               => 1,
-//                    'per_page'           => 100,
-//                    'order_state_codes'  => 'WAITING_ACCEPTANCE',
-//                ],
-//                'timeout' => 10,
-//            ]);
-//        } catch (RequestException $e) {
-//            $this->error('API-Fehler: ' . $e->getMessage());
-//            return Command::FAILURE;
-//        }
-
         $_orders = $this->client->orders()->open();
 
         dump($_orders);
@@ -75,56 +55,6 @@ class ImportOrders extends Command
                 ]
             );
 
-
-//            $tmp = $this->client->orders()->get($order);
-//
-//            if (!isset($tmp['orders']))
-//            {
-//                throw new \Exception('could not refetch customer data');
-//            }
-
-//            // 2) Billing-Adresse speichern
-//            if (! empty($o['customer']['billing_address'])) {
-//                $b = $o['customer']['billing_address'];
-//
-//                $order->billingAddress()->updateOrCreate(
-//                    ['order_id' => $order->id],
-//                    [
-//                        'civility'         => $b['civility']         ?? null,
-//                        'company'          => $b['company']          ?? null,
-//                        'street_1'         => $b['street_1']         ?? null,
-//                        'street_2'         => $b['street_2']         ?? null,
-//                        'city'             => $b['city']             ?? null,
-//                        'state'            => $b['state']            ?? null,
-//                        'zip_code'         => $b['zip_code']         ?? null,
-//                        'country_iso_code' => $b['country_iso_code'] ?? null,
-//                    ]
-//                );
-//            }
-
-//            // 3) Shipping-Adresse speichern
-//            if (! empty($tmp['orders'][0]['customer']['shipping_address'])) {
-//                $s = $tmp['orders'][0]['customer']['shipping_address'];
-//
-//
-//                $order->shippingAddress()->updateOrCreate(
-//                    ['order_id' => $order->id],
-//                    [
-//                        'civility'                 => $s['civility']                ?? null,
-//                        'company'                  => $s['company']                 ?? null,
-//                        'additional_info'          => $s['additional_info']         ?? null,
-//                        'internal_additional_info' => $s['internal_additional_info']?? null,
-//                        'street_1'                 => $s['street_1']                ?? null,
-//                        'street_2'                 => $s['street_2']                ?? null,
-//                        'city'                     => $s['city']                    ?? null,
-//                        'state'                    => $s['state']                   ?? null,
-//                        'zip_code'                 => $s['zip_code']                ?? null,
-//                        'country_iso_code'         => $s['country_iso_code']        ?? null,
-//                    ]
-//                );
-//            }
-//
-//            // 4) OrderLines wie gehabt
             foreach ($o['order_lines'] as $l) {
                 $order->lines()->updateOrCreate(
                     ['order_line_id' => $l['order_line_id']],
