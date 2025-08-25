@@ -16,5 +16,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         ]);
     });
 
-    Route::post('/imports/offers-csv', [OfferCsvImportController::class, 'store']);
+    Route::post('/offers/stock', [OfferCsvImportController::class, 'store']);
 });
