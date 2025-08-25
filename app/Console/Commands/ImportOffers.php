@@ -44,7 +44,9 @@ class ImportOffers extends Command
 
         foreach ($_offers['offers'] as $offer) {
 
-            Offer::create([
+            Offer::updateOrCreate([
+                'sku' => $offer['shop_sku'],
+            ],[
                 'sku' => $offer['shop_sku'],
                 'price' => $offer['price'],
                 'quantity' => $offer['quantity']
