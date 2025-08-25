@@ -35,7 +35,7 @@ class ApiClient
      * @param array      $query       (optional) Query-Parameter
      * @return array|null
      */
-    private function execute(string $httpMethod, string $url, array $parameters = [], array $query = []): ?array
+    private function execute(string $httpMethod, string $url, array $parameters = [], array $query = [], bool $raw = false): array|string|null
     {
         try {
             $options = [
@@ -55,6 +55,10 @@ class ApiClient
 
             $response = $this->getClient()->{$httpMethod}($url, $options);
 
+            if ($raw){
+                return $response->getBody()->getContents();
+            }
+
             return json_decode((string)$response->getBody(), true);
         } catch (RequestException $e) {
             // hier kannst du noch $e->getResponse() auslesen, wenn gewünscht
@@ -64,9 +68,9 @@ class ApiClient
 
     // ========================= base methods ======================================
 
-    public function _get(string $url = null, array $parameters = [], array $query = []): ?array
+    public function _get(string $url = null, array $parameters = [], array $query = [], bool $raw = false): array|string|null
     {
-        return $this->execute('get', $url, $parameters, $query);
+        return $this->execute('get', $url, $parameters, $query, $raw);
     }
 
     public function _post(string $url = null, array $parameters = [], array $query = []): ?array

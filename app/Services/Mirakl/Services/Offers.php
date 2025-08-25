@@ -9,6 +9,7 @@ class Offers extends ApiClient
 {
     public function import()
     {
+        return $this->_get('/api/offers/export', [], [], true);
         return $this->_get('/api/offers');
     }
 
