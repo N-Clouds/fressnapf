@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OfferCsvImportController;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,4 +15,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
             'tracking_id' => $request->validated('tracking_id'),
         ]);
     });
+
+    Route::post('/imports/offers-csv', [OfferCsvImportController::class, 'store']);
 });

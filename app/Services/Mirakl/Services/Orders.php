@@ -47,7 +47,7 @@ class Orders extends ApiClient
         $endpoint = "/api/orders/{$order->order_id}/accept";
 
         // 3) Führe das PUT-Request aus
-        return $this->_put(
+        return $this->_post(
             $endpoint,
             ['order_lines' => $payloadLines],  // JSON-Body
             []                                 // hier keine weiteren Query-Params
