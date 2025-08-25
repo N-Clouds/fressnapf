@@ -74,13 +74,15 @@ class OfferCsvImportController extends Controller
             $qtyRaw = trim((string)$row[$idx['quantity']]);
 
             // qty validieren
-            $qty = filter_var($qtyRaw, FILTER_VALIDATE_INT);
-            if ($sku === '' || $qty === false || $qty < 0) { $skipped++; continue; }
+//            $qty = filter_var($qtyRaw, FILTER_VALIDATE_INT);
+//            if ($sku === '' || $qty === false || $qty < 0) {
+//                $skipped++; continue;
+//            }
 
             // Einzelnes UPDATE – nur bestehende Datensätze werden getroffen
             $count = DB::table('offers')
                 ->where('sku', $sku)
-                ->update(['quantity' => (int)$qty, 'updated_at' => $now]);
+                ->update(['quantity' => (int)$qtyRaw, 'updated_at' => $now]);
 
             if ($count > 0) { $updated++; } else { $skipped++; }
         }
